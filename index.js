@@ -57,3 +57,27 @@ export  function byteOfStr(str) {
   }  
   return total;  
 }
+
+export function debonce(fn){
+    let timeout = null;
+    return function(){
+      clearTimeout(timeout);
+      timeout = setTimeout(()=>{
+        fu.call(this,arguments);
+      },1000)
+    }
+}
+
+function throttle(fn){
+    let isActive = true;
+    return function(){
+      if(!isActive){
+        return
+      }
+      isActive = false;
+      setTimeout(()=>{
+        fu.call(this,arguments);
+        isActive = true;
+      },1000)
+    }
+}
